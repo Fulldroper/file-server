@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Logs</title>
+</head>
+<body>
+    <style>
+        #main-table>table{
+            border: none;
+
+            color: rgb(61, 113, 61);
+        }
+        .bad{
+            color: red;
+        }
+        .local{
+            color: rgb(91, 91, 91);
+        }
+        body{
+            background-color: #181a1b;
+        }
+        button{
+            background-color:#2d2d2d;
+            border: none;
+            color:#ff5f5f;
+            cursor: pointer;
+        }
+        .proxy{
+            color: #c68000;
+        }
+    </style>
+    <div id="main-table"></div>
+    <script>
+        // function checkInSpamBase(ip,token,obj) {
+        //     const reqString = `https://api.hetrixtools.com/v2/${token}/blacklist-check/ipv4/${ip}/`;
+        //     const proxy ='http://localhost/CORS-PROXY/'
+        //     fetch(proxy+reqString)
+        //     .then(res=>res.json())
+        //     .then(res=>{
+        //         obj.innerHTML=`${res.blacklisted_count}/${res.blacklist_check_credits_left}`
+        //     })
+        // }
+        let data;
+        function load(res) {
+            const table = document.getElementById('main-table');
+                const token = '070b81644df4bcdedce7dbc992a2ec71'
+                let str='<table border="1"><caption>logs</caption><tr><th>Date</th><th>Req domen</th><th>IP</th><th>Req</th></tr>';
+                data.forEach(el=>{
+                    str+=`<tr class="${el.dom == 'undefined' ? 'bad':'good'} ${el.dom == 'localhost' ? 'local':'good'} ${el.dom == '93.76.162.211' ? 'bad':'good'} ${ /^\/CORS-PROXY\/.*/.test(el.req) ? 'proxy':'good'}"><th>${el.data}</th><th>${el.dom}</th><th>${el.ip}</th><th>${el.req}</th><th><button value="check" onclick="checkInSpamBase('${el.ip}','${token}',this)">Check</button></th></tr>`;
+                });
+                str+='</table>';
+                table.innerHTML=str;
+        }
+        window.onload=()=>{
+            fetch("_logs")
+            .then(res=>res.json())
+            .then(res=>{
+                data=res;
+                load(data)
+            })
+            .catch(err=>{console.log(err)})
+        }
+    </script>
+</body>
+</html>

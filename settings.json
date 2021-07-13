@@ -1,0 +1,21 @@
+{
+    "serverPort":"1338",
+    "homeDir":"home",
+    "logsPath":"./",
+	"CORSP":false,
+    "hosts":["localhost"],
+    "types":{
+        ".js":"text/javascript",
+        ".txt":"text/plain",
+        ".css":"text/css",
+        ".json":"application/json",
+        ".png":"image/png",
+        ".jpg":"image/jpg",
+        ".ico":"image/x-icon",
+        ".wav":"audio/wav",
+        ".mp4":"video/mp4",
+        ".zip":"application/zip",
+        ".rar":"application/x-rar-compressed",
+        ".iso":"application/octet-stream"
+    }
+}
