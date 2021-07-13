@@ -1,6 +1,6 @@
 Simple cross domen file server over http
 
-how to install?
+How to install?
 
 1. get repo
 >```git clone https://github.com/Fulldroper/file-server.git```
