@@ -1,16 +1,34 @@
-Simple cross domen file server over http
+---
+title: "File Server"
+description: "A simple cross-domain file server with support for multi-domain, ban system, and logging."
+publishDate: "13 Jul 2021"
+updatedDate: "13 Jul 2021"
+tags: ["node.js", "web server", "multi-domain", "logging", "ban system"]
+---
+The purpose of the project is to create a web server that supports multiple domains, a ban system, and logging capabilities.
 
-How to install?
+## Project Utility
+This project is useful for serving files over HTTP with support for multiple domains, banning IP addresses, and logging requests.
 
-1. get repo
->```git clone https://github.com/Fulldroper/file-server.git```
-2. get all packages
->```npm install```
+## Project Description
+The file server is implemented using Node.js and allows configuration for multiple domains, MIME types, and logging paths. It also supports banning specific IP addresses.
 
-How to setup?
+## Repository and Installation
+Repository: [File Server on GitHub](https://github.com/Fulldroper/file-server)
 
-change settings inside file `settings.json`
-```
+### Installation
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Fulldroper/file-server.git
+    ```
+2. Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+### Setup
+Edit the `settings.json` file to configure the server:
+```json
 {
     "serverPort":"1337",
     "homeDir":"home",
@@ -32,28 +50,53 @@ change settings inside file `settings.json`
     }
 }
 ```
-where:
-1. `serverPort` - is a port of server
-2. `homeDir` - is a folder of files where `%homeDir%/%domen_name%/index.html` is `https://%domen_name%/index.html`
-3. `logsPath` - path of log file `log.txt`
-4. `hosts` - list of allowed domens and ip`s
-5. `types` - list of mime types alowed on server
 
-How to block ip?
-Just add ip like a string to file `banlist.json`
-
-example:
-```
+### Blocking an IP
+Add the IP to `banlist.json`:
+```json
 [
     "192.168.0.1",
     "192.168.0.2"
 ]
 ```
-Add domen?
-1. add name of domen to file `settings.json` inside `hosts`
-2. create folder with name as name domen inside folder `%homeDir%`
 
-How check logs?
-![logs example](https://cdn.discordapp.com/attachments/834769719823302666/864558052929699880/unknown.png)
-open file `logs.html` **or** open [`https://localhost/logs.html`](https://localhost/logs.html)
-![logs.html](https://media.discordapp.net/attachments/834769719823302666/864559120065232896/unknown.png?width=690&height=508)
+### Adding a Domain
+1. Add the domain to the `hosts` array in `settings.json`.
+2. Create a folder named after the domain inside the `homeDir`.
+
+## Algorithm
+1. **Server Initialization:**
+    ```javascript
+    const http = require('http');
+    const settings = require('./settings.json');
+    // Initialize server with settings
+    ```
+2. **Request Handling:**
+    ```javascript
+    http.createServer((req, res) => {
+        // Handle request based on domain and file type
+    }).listen(settings.serverPort);
+    ```
+3. **Logging:**
+    ```javascript
+    const fs = require('fs');
+    // Log request details
+    fs.appendFile('log.txt', logData, (err) => {
+        if (err) throw err;
+    });
+    ```
+4. **Ban System:**
+    ```javascript
+    const banlist = require('./banlist.json');
+    // Check if the requester's IP is in the banlist
+    if (banlist.includes(req.connection.remoteAddress)) {
+        res.writeHead(403);
+        res.end('Access denied');
+    }
+    ```
+
+## Skills Acquired
+- Understanding of HTTP servers with Node.js
+- Implementing multi-domain support
+- Managing and processing logs
+- IP banning mechanisms
