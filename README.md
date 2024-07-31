@@ -1,10 +1,3 @@
----
-title: "File Server"
-description: "A simple cross-domain file server with support for multi-domain, ban system, and logging."
-publishDate: "13 Jul 2021"
-updatedDate: "13 Jul 2021"
-tags: ["node.js", "web server", "multi-domain", "logging", "ban system"]
----
 The purpose of the project is to create a web server that supports multiple domains, a ban system, and logging capabilities.
 
 ## Project Utility
